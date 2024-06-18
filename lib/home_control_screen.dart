@@ -33,6 +33,7 @@ class _HomePageState extends State<HomePage> {
   int isSupplyFan = 0;
   int isExhaustFan = 0;
   int isOnSupplyFan = 0;
+  int isONExhaustFan = 1;
   String cO2 = '0';
   @override
   void initState() {
@@ -50,6 +51,11 @@ class _HomePageState extends State<HomePage> {
     databaseRef.child('SetOn-supplyFan').onValue.listen((event) {
       setState(() {
         isOnSupplyFan = int.parse(event.snapshot.value.toString());
+      });
+    });
+    databaseRef.child('SetFreq-exhaustFan').onValue.listen((event) {
+      setState(() {
+        isONExhaustFan = int.parse(event.snapshot.value.toString());
       });
     });
     databaseRef.child('SetCO2-Supply').onValue.listen((event) {
@@ -170,6 +176,8 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(
                           width: 300,
                           child: CustomSwitch(
+                            onText: 'AUTO',
+                            offText: 'REMOTE',
                             selectedIndex: isSupplyFan,
                             onChanged: (value) {
                               databaseRef.child('Set-RemoteSupply').set(value);
@@ -186,7 +194,7 @@ class _HomePageState extends State<HomePage> {
                           child: _renderTextField(size, '',
                               unit: 'PPM',
                               controller: setCO2SupplyController,
-                              isEnable: isSupplyFan == 1, onChange: (value) {
+                              isEnable: isSupplyFan == 0, onChange: (value) {
                             setState(
                               () {
                                 isChangeByText = true;
@@ -203,6 +211,8 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(
                           width: 300,
                           child: CustomSwitch(
+                            onText: 'OFF',
+                            offText: 'ON',
                             selectedIndex: isOnSupplyFan,
                             onChanged: (value) {
                               databaseRef.child('SetOn-supplyFan').set(value);
@@ -220,7 +230,7 @@ class _HomePageState extends State<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                frequencySupplyFan,
+                                frequencySupplyFan == '1' ? '50' : '0',
                                 style: const TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
@@ -271,6 +281,8 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(
                           width: 300,
                           child: CustomSwitch(
+                            onText: 'AUTO',
+                            offText: 'REMOTE',
                             selectedIndex: isExhaustFan,
                             onChanged: (value) {
                               databaseRef.child('Set-RemoteExhaust').set(value);
@@ -287,12 +299,30 @@ class _HomePageState extends State<HomePage> {
                           child: _renderTextField(size, '',
                               unit: 'PPM',
                               controller: setCO2ExhaustController,
-                              isEnable: isExhaustFan == 1, onChange: (value) {
+                              isEnable: isExhaustFan == 0, onChange: (value) {
                             setState(() {
                               isChangeByText = true;
                             });
                             databaseRef.child('SetCO2-Exhaust').set(value);
                           })),
+                      _renderSpacer(),
+                      const Text(
+                        'SET ON EXHAUST FAN',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                          width: 300,
+                          child: CustomSwitch(
+                            onText: 'OFF',
+                            offText: 'ON',
+                            selectedIndex: isONExhaustFan == 2 ? 1 : 0,
+                            onChanged: (value) {
+                              databaseRef
+                                  .child('SetFreq-exhaustFan')
+                                  .set(value == 0 ? 1 : 2);
+                            },
+                          )),
                       _renderSpacer(),
                       const Text(
                         'SET FREQUENCY EXHAUST FAN',
@@ -304,7 +334,7 @@ class _HomePageState extends State<HomePage> {
                         child: _renderTextField(size, '',
                             unit: 'HZ',
                             controller: setFreqexhaustFanController,
-                            isEnable: isExhaustFan == 1, onChange: (value) {
+                            isEnable: isExhaustFan == 0, onChange: (value) {
                           setState(() {
                             isChangeByText = true;
                           });
@@ -366,7 +396,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  SizedBox _renderSpacer() => const SizedBox(height: 40);
+  SizedBox _renderSpacer() => const SizedBox(height: 30);
 
   SizedBox _renderTextField(Size size, String title,
       {bool? isEnable,
@@ -525,8 +555,14 @@ class _CustomComponentState extends State<CustomComponent> {
 class CustomSwitch extends StatefulWidget {
   final int selectedIndex;
   final ValueChanged<int> onChanged;
+  final String onText;
+  final String offText;
 
-  CustomSwitch({required this.selectedIndex, required this.onChanged});
+  CustomSwitch(
+      {required this.selectedIndex,
+      required this.onChanged,
+      required this.onText,
+      required this.offText});
 
   @override
   State<CustomSwitch> createState() => _CustomSwitchState();
@@ -561,8 +597,8 @@ class _CustomSwitchState extends State<CustomSwitch> {
           ),
           Row(
             children: [
-              _buildOption('AUTO', 0),
-              _buildOption('REMOTE', 1),
+              _buildOption(widget.onText, 0),
+              _buildOption(widget.offText, 1),
             ],
           ),
         ],

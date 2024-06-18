@@ -105,13 +105,13 @@ enum MonitorEnum {
   int get divideNumber {
     switch (this) {
       case cO2:
-        return 150;
+        return 200;
       case voltage:
         return 100;
       case current:
-        return 1;
+        return 2;
       case exhaustFan:
-        return 60;
+        return 260;
       case compareCo2Exhaust:
         return 0;
       default:

@@ -182,7 +182,7 @@ class BarChartSample2State extends State<BarChartSample2> {
                         width: 4,
                       ),
                       const Text(
-                        'state',
+                        '',
                         style:
                             TextStyle(color: Color(0xff77839a), fontSize: 16),
                       ),
@@ -194,7 +194,7 @@ class BarChartSample2State extends State<BarChartSample2> {
                   Expanded(
                     child: BarChart(
                       BarChartData(
-                        maxY: 1500,
+                        maxY: 2000,
                         barTouchData: BarTouchData(
                           touchTooltipData: BarTouchTooltipData(
                             getTooltipColor: ((group) {
@@ -252,9 +252,7 @@ class BarChartSample2State extends State<BarChartSample2> {
                           rightTitles: const AxisTitles(
                             sideTitles: SideTitles(showTitles: false),
                           ),
-                          topTitles: const AxisTitles(
-                            sideTitles: SideTitles(showTitles: false),
-                          ),
+                          topTitles: AxisTitles(),
                           bottomTitles: AxisTitles(
                             sideTitles: SideTitles(
                               showTitles: true,
@@ -300,20 +298,14 @@ class BarChartSample2State extends State<BarChartSample2> {
     String text;
     if (value == 0) {
       text = '0';
-    } else if (value == 300) {
-      text = '300';
     } else if (value == 500) {
       text = '500';
-    } else if (value == 700) {
-      text = '700';
-    } else if (value == 900) {
-      text = '900';
-    } else if (value == 1100) {
-      text = '1100';
-    } else if (value == 1300) {
-      text = '1300';
+    } else if (value == 1000) {
+      text = '1000';
     } else if (value == 1500) {
       text = '1500';
+    } else if (value == 2000) {
+      text = '2000';
     } else {
       return Container();
     }
