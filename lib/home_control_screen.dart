@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
         isOnSupplyFan = int.parse(event.snapshot.value.toString());
       });
     });
-    databaseRef.child('SetFreq-exhaustFan').onValue.listen((event) {
+    databaseRef.child('SetOn-exhaustFan').onValue.listen((event) {
       setState(() {
         isONExhaustFan = int.parse(event.snapshot.value.toString());
       });
@@ -319,7 +319,7 @@ class _HomePageState extends State<HomePage> {
                             selectedIndex: isONExhaustFan == 2 ? 1 : 0,
                             onChanged: (value) {
                               databaseRef
-                                  .child('SetFreq-exhaustFan')
+                                  .child('SetOn-exhaustFan')
                                   .set(value == 0 ? 1 : 2);
                             },
                           )),
