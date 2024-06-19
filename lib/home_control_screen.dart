@@ -332,9 +332,8 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(
                         width: 300,
                         child: _renderTextField(size, '',
-                            unit: 'HZ',
-                            controller: setFreqexhaustFanController,
-                            isEnable: isExhaustFan == 0, onChange: (value) {
+                            unit: 'HZ', controller: setFreqexhaustFanController,
+                            onChange: (value) {
                           setState(() {
                             isChangeByText = true;
                           });

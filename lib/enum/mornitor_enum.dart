@@ -105,7 +105,7 @@ enum MonitorEnum {
   int get divideNumber {
     switch (this) {
       case cO2:
-        return 200;
+        return 600;
       case voltage:
         return 100;
       case current:
