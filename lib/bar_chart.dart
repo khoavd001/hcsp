@@ -298,14 +298,16 @@ class BarChartSample2State extends State<BarChartSample2> {
     String text;
     if (value == 0) {
       text = '0';
-    } else if (value == 500) {
-      text = '500';
     } else if (value == 1000) {
       text = '1000';
-    } else if (value == 1500) {
-      text = '1500';
     } else if (value == 2000) {
       text = '2000';
+    } else if (value == 3000) {
+      text = '3000';
+    } else if (value == 4000) {
+      text = '4000';
+    } else if (value == 5000) {
+      text = '5000';
     } else {
       return Container();
     }
