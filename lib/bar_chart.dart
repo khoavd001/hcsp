@@ -194,7 +194,7 @@ class BarChartSample2State extends State<BarChartSample2> {
                   Expanded(
                     child: BarChart(
                       BarChartData(
-                        maxY: 2000,
+                        maxY: 6000,
                         barTouchData: BarTouchData(
                           touchTooltipData: BarTouchTooltipData(
                             getTooltipColor: ((group) {
