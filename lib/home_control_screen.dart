@@ -211,6 +211,8 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(
                           width: 300,
                           child: CustomSwitch(
+                            switchColor:
+                                isOnSupplyFan != 1 ? Colors.red : Colors.green,
                             onText: 'OFF',
                             offText: 'ON',
                             selectedIndex: isOnSupplyFan,
@@ -314,6 +316,8 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(
                           width: 300,
                           child: CustomSwitch(
+                            switchColor:
+                                isONExhaustFan == 1 ? Colors.red : Colors.green,
                             onText: 'OFF',
                             offText: 'ON',
                             selectedIndex: isONExhaustFan == 2 ? 1 : 0,
@@ -556,12 +560,14 @@ class CustomSwitch extends StatefulWidget {
   final ValueChanged<int> onChanged;
   final String onText;
   final String offText;
+  final Color? switchColor;
 
   CustomSwitch(
       {required this.selectedIndex,
       required this.onChanged,
       required this.onText,
-      required this.offText});
+      required this.offText,
+      this.switchColor});
 
   @override
   State<CustomSwitch> createState() => _CustomSwitchState();
@@ -589,7 +595,7 @@ class _CustomSwitchState extends State<CustomSwitch> {
               width: 150,
               height: 40,
               decoration: BoxDecoration(
-                color: Colors.green,
+                color: widget.switchColor ?? Colors.green,
                 borderRadius: BorderRadius.circular(10.0),
               ),
             ),
